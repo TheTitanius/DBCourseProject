@@ -7,13 +7,20 @@ namespace DBCourseProject
     {
         public Context()
         {
+            /*
             Database.EnsureDeleted();
             Database.EnsureCreated();
+            */
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(@"host=localhost;port=5432;database=dealerSystem;username=postgres;password=16368");
+            optionsBuilder.UseNpgsql(@"host=localhost;port=5432;database=dealerSystem;username=postgres;password=16368", o => o.UseNodaTime());
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Manufacturer>().HasIndex(p => p.Name).IsUnique();
         }
 
         public DbSet<Client> Clients { get; set; }
