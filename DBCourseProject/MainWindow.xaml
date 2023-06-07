@@ -3,11 +3,175 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DBCourseProject"
+        xmlns:local="clr-namespace:DBCourseProject" xmlns:entities="clr-namespace:DBCourseProject.Entities"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Абоба" HorizontalAlignment="Center" Margin="0,204,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-
+        <TabControl>
+            <TabItem Header="Клиенты" Name="ClientItem">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0" x:Name="clientsList" ItemsSource="{Binding Clients}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding ClientId}"/>
+                                <GridViewColumn Header="ФИО" Width="200" DisplayMemberBinding="{Binding FullName}"/>
+                                <GridViewColumn Header="Телфон" Width="150" DisplayMemberBinding="{Binding Telephone}"/>
+                                <GridViewColumn Header="Банковский счет" Width="200" DisplayMemberBinding="{Binding BankAccount}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Добавить клиента" Command="{Binding AddCommand}"/>
+                        <Button Grid.Column="1" Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=clientsList, Path=SelectedItem}"/>
+                        <Button Grid.Column="2" Content="Удалить клиента" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=clientsList, Path=SelectedItem}"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Проиводители" Name="ManufacturerItem">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0" x:Name="manufacturersList" ItemsSource="{Binding Manufacturers}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding ManufacturerId}"/>
+                                <GridViewColumn Header="Название" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Директор" Width="150" DisplayMemberBinding="{Binding Director}"/>
+                                <GridViewColumn Header="Главный бухгалтер" Width="150" DisplayMemberBinding="{Binding ChiefAccountant}"/>
+                                <GridViewColumn Header="Банковские реквизиты" Width="150" DisplayMemberBinding="{Binding BankDetails}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Добавить производителя" Command="{Binding AddCommand}"/>
+                        <Button Grid.Column="1" Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=manufacturersList, Path=SelectedItem}"/>
+                        <Button Grid.Column="2" Content="Удалить производителя" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=manufacturersList, Path=SelectedItem}"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Телевизоры" Name="TVItem">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0" x:Name="tvsList" ItemsSource="{Binding TVs}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding TVId}"/>
+                                <GridViewColumn Header="Название" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Цена" Width="150" DisplayMemberBinding="{Binding Price}"/>
+                                <GridViewColumn Header="Тип" Width="150" DisplayMemberBinding="{Binding TVType.Type}"/>
+                                <GridViewColumn Header="Производитель" Width="150" DisplayMemberBinding="{Binding Manufacturer.Name}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Добавить телевизор" Command="{Binding AddCommand}"/>
+                        <Button Grid.Column="1" Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=tvsList, Path=SelectedItem}"/>
+                        <Button Grid.Column="2" Content="Удалить телевизор" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=tvsList, Path=SelectedItem}"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Договоры" Name="ContractsItem">
+                <TabControl>
+                    <TabItem Header="На поставку" Name="SupplyContractsItem">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="0.1*"/>
+                            </Grid.RowDefinitions>
+                            <ListView Grid.Row="0" x:Name="supplyContractsList" ItemsSource="{Binding Contracts}">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSupply}" Value="False">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding ContractId}"/>
+                                        <GridViewColumn Header="Номер договора" Width="150" DisplayMemberBinding="{Binding ContractNumber}"/>
+                                        <GridViewColumn Header="Дата заключения" Width="150" DisplayMemberBinding="{Binding Date}"/>
+                                        <GridViewColumn Header="Заключен с" Width="150" DisplayMemberBinding="{Binding Manufacturer.Name}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Content="Добавить договор" Command="{Binding ManufacturerAddCommand}"/>
+                                <Button Grid.Column="1" Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=supplyContractsList, Path=SelectedItem}"/>
+                                <Button Grid.Column="2" Content="Удалить договор" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=supplyContractsList, Path=SelectedItem}"/>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="На продажу" Name="BuyerContractsItem">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="0.1*"/>
+                            </Grid.RowDefinitions>
+                            <ListView Grid.Row="0" x:Name="buyerContractsList" ItemsSource="{Binding Contracts}">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSupply}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding ContractId}"/>
+                                        <GridViewColumn Header="Номер договора" Width="150" DisplayMemberBinding="{Binding ContractNumber}"/>
+                                        <GridViewColumn Header="Дата заключения" Width="150" DisplayMemberBinding="{Binding Date}"/>
+                                        <GridViewColumn Header="Заключен с" Width="150" DisplayMemberBinding="{Binding Client.FullName}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Content="Добавить договор" Command="{Binding ClientAddCommand}"/>
+                                <Button Grid.Column="1" Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=buyerContractsList, Path=SelectedItem}"/>
+                                <Button Grid.Column="2" Content="Удалить договор" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=buyerContractsList, Path=SelectedItem}"/>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
