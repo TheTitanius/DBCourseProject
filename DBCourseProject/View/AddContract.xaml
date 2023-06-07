@@ -1,0 +1,57 @@
+﻿<Window x:Class="DBCourseProject.View.AddContract"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DBCourseProject.View"
+        mc:Ignorable="d"
+        Title="Добавить контракт" Height="200" Width="470">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Номер контракта" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBox Text="{Binding Contract.ContractNumber}" Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Дата" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBox Text="{Binding Contract.Date}" Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0"/>
+        </Grid>
+        <Grid Grid.Row="2" Visibility="Visible" Name="manufacturerGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Проивзодитель" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <ComboBox Name="manufacturerComboBox" SelectedItem="{Binding ManufacturerName}" Grid.Column="2" Margin="5,5,5,5"/>
+        </Grid>
+        <Grid Grid.Row="2" Visibility="Collapsed" Name="buyerGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Покупатель" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <ComboBox Name="buyerComboBox" SelectedItem="{Binding FullName}" Grid.Column="2" Margin="5,5,5,5"/>
+        </Grid>
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Добавить/Изменить" IsDefault="True" Click="Button_Click" Grid.Column="0"/>
+            <Button Content="Отмена" IsCancel="True" Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</Window>

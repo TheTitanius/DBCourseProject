@@ -1,0 +1,49 @@
+﻿<Window x:Class="DBCourseProject.View.AddClient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DBCourseProject.View"
+        mc:Ignorable="d"
+        Title="Добавить/Изменить клиента" Height="200" Width="470">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="ФИО" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBox Text="{Binding FullName}" Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Телефон" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBox Text="{Binding Telephone}" Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"><Run Text="Номер"/><LineBreak/><Run Text="банковского счета"/></TextBlock>
+            <TextBox Text="{Binding BankAccount}" Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0"/>
+        </Grid>
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Добавить/Изменить" IsDefault="True" Click="Button_Click" Grid.Column="0"/>
+            <Button Content="Отмена" IsCancel="True" Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</Window>
