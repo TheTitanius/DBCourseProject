@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NodaTime;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -7,10 +8,33 @@ namespace DBCourseProject.Entities
     public class Bill : INotifyPropertyChanged
     {
         public int BillId { get; set; }
-        public int BillNumber { get; set; }
-        public DateTime Date { get; set; }
-        
-        public int Sum { get; set; }
+
+        private int billNumber;
+        public int BillNumber { get { return billNumber; } set
+            {
+                billNumber = value;
+                OnPropertyChanged(nameof(BillNumber));
+            }
+        }
+
+        private Instant date;
+        public Instant Date { get { return date; } set
+            {
+                date = value;
+                OnPropertyChanged(nameof(Date));
+            }
+        }
+
+        private int sum;
+        public int Sum
+        {
+            get { return sum; }
+            set
+            {
+                sum = value;
+                OnPropertyChanged(nameof(Sum));
+            }
+        }
 
         private PurchaseOrder purchaseOrder;
         public PurchaseOrder PurchaseOrder
