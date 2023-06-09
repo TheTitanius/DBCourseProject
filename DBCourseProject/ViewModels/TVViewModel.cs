@@ -1,6 +1,7 @@
 ﻿using DBCourseProject.Entities;
 using DBCourseProject.View;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -16,6 +17,7 @@ namespace DBCourseProject.ViewModels
         private RelayCommand? addCommand;
         private RelayCommand? editCommand;
         private RelayCommand? deleteCommand;
+        private RelayCommand? addCartCommand;
         public TVViewModel(Context db)
         {
             this.db = db;
@@ -42,7 +44,7 @@ namespace DBCourseProject.ViewModels
                         if (addTV.ShowDialog() == true)
                         {
                             TV tv = addTV.TV;
-                            if(db.TVTypes.Where(p => p.Type == addTV.TVType).FirstOrDefault() == null)
+                            if (db.TVTypes.Where(p => p.Type == addTV.TVType).FirstOrDefault() == null)
                             {
                                 TVType type = new()
                                 {
@@ -125,6 +127,29 @@ namespace DBCourseProject.ViewModels
                             tv.Manufacturer = db.Manufacturers.Where(p => p.Name == addTV.ManufacturerName).First();
 
                             db.Entry(tv).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }));
+            }
+        }
+
+        public RelayCommand AddCartCommand
+        {
+            get
+            {
+                return addCartCommand ??
+                    (addCartCommand = new RelayCommand((selectedItem) =>
+                    {
+                        if (selectedItem is not TV tv) return;
+
+                        AddTVToCart addTVToCart = new(new GoodDelivery(), tv);
+
+                        if (addTVToCart.ShowDialog() == true)
+                        {
+                            GoodDelivery goodDelivery = addTVToCart.GoodDelivery;
+                            goodDelivery.Sum = goodDelivery.Quantity * db.TVs.Where(p => p.TVId == goodDelivery.TV.TVId).First().Price;
+
+                            db.GoodsDelivery.Add(goodDelivery);
                             db.SaveChanges();
                         }
                     }));
