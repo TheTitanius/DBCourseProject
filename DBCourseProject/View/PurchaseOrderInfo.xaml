@@ -1,0 +1,78 @@
+﻿<Window x:Class="DBCourseProject.View.PurchaseOrderInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DBCourseProject.View"
+        mc:Ignorable="d"
+        Title="PurchaseOrderViewModel" Height="450" Width="550">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/> 
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="buyerInfo">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Покупатель:" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBlock Text="{Binding PurchaseOrder.Contract.Client.FullName}" Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0"/>
+        </Grid>
+        <Grid Grid.Row="0" Name="supplierInfo" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Поставщик:" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBlock Text="{Binding PurchaseOrder.Contract.Manufacturer.Name}" Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Сумма заказа:" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBlock Text="{Binding PurchaseOrder.Sum}" Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Статус заказа:" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <TextBlock Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Text" Value="Заказ не оплачен"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding PurchaseOrder.PaymentStat}" Value="True">
+                                <Setter Property="Text" Value="Заказ оплачен"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+        <ListView Grid.Row="3" Name="tvList">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding TV.TVId}"/>
+                    <GridViewColumn Header="Название" Width="150" DisplayMemberBinding="{Binding TV.Name}"/>
+                    <GridViewColumn Header="Цена" Width="50" DisplayMemberBinding="{Binding TV.Price}"/>
+                    <GridViewColumn Header="Тип" Width="150" DisplayMemberBinding="{Binding TV.TVType.Type}"/>
+                    <GridViewColumn Header="Количество" Width="70" DisplayMemberBinding="{Binding TVQuantity}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Grid Grid.Row="4" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Выход" IsCancel="True" Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</Window>
