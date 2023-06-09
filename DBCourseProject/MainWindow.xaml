@@ -79,18 +79,21 @@
                                 <GridViewColumn Header="Цена" Width="150" DisplayMemberBinding="{Binding Price}"/>
                                 <GridViewColumn Header="Тип" Width="150" DisplayMemberBinding="{Binding TVType.Type}"/>
                                 <GridViewColumn Header="Производитель" Width="150" DisplayMemberBinding="{Binding Manufacturer.Name}"/>
+                                <GridViewColumn Header="На складе" Width="100" DisplayMemberBinding="{Binding TvInStock}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
                     <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Добавить телевизор" Command="{Binding AddCommand}"/>
-                        <Button Grid.Column="1" Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=tvsList, Path=SelectedItem}"/>
-                        <Button Grid.Column="2" Content="Удалить телевизор" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=tvsList, Path=SelectedItem}"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Добавить телевизор" Command="{Binding AddCommand}"/>
+                    <Button Grid.Column="1" Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=tvsList, Path=SelectedItem}"/>
+                    <Button Grid.Column="2" Content="Удалить телевизор" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=tvsList, Path=SelectedItem}"/>
+                    <Button Grid.Column="3" Content="Добавить в корзину" Command="{Binding AddCartCommand}" CommandParameter="{Binding ElementName=tvsList, Path=SelectedItem}"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -171,6 +174,147 @@
                         </Grid>
                     </TabItem>
                 </TabControl>
+            </TabItem>
+            <TabItem Header="Корзина" Name="GoodDeliveryItem">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0" x:Name="goodsDeliveryList" ItemsSource="{Binding GoodsDelivery}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PurchaseOrder}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding GoodDeliveryId}"/>
+                                <GridViewColumn Header="Название телевизора" Width="150" DisplayMemberBinding="{Binding TV.Name}"/>
+                                <GridViewColumn Header="Количество" Width="150" DisplayMemberBinding="{Binding Quantity}"/>
+                                <GridViewColumn Header="Сумма" Width="150" DisplayMemberBinding="{Binding Sum}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Изменить количество" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=goodsDeliveryList, Path=SelectedItem}"/>
+                        <Button Grid.Column="1" Content="Удалить товар" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=goodsDeliveryList, Path=SelectedItem}"/>
+                        <Button Grid.Column="2" Content="Добавить в заказ" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=goodsDeliveryList, Path=SelectedItems}"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Заказы" Name="PurchaseOrderItem">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0" x:Name="purchaseOrdersList" ItemsSource="{Binding PurchaseOrders}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding PurchaseOrderId}"/>
+                                <GridViewColumn Header="Номер заказа" Width="150" DisplayMemberBinding="{Binding OrderNumber}"/>
+                                <GridViewColumn Header="Сумма заказа" Width="150" DisplayMemberBinding="{Binding Sum}"/>
+                                <GridViewColumn Header="Номер договора" Width="150" DisplayMemberBinding="{Binding Contract.ContractNumber}"/>
+                                <GridViewColumn Header="Статус заказа" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Text" Value="Заказ не оплачен"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding PaymentStat}" Value="True">
+                                                                <Setter Property="Text" Value="Заказ оплачен"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Оплатить заказ" Command="{Binding PayCommand}" CommandParameter="{Binding ElementName=purchaseOrdersList, Path=SelectedItem}"/>
+                        <Button Grid.Column="1" Content="Информация о заказе" Command="{Binding OpenCommand}" CommandParameter="{Binding ElementName=purchaseOrdersList, Path=SelectedItem}"/>
+                        <Button Grid.Column="2" Content="Удалить заказ" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=purchaseOrdersList, Path=SelectedItem}"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Чеки" Name="BillItem">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0" x:Name="billsList" ItemsSource="{Binding Bills}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding BillId}"/>
+                                <GridViewColumn Header="Время оплаты" Width="150" DisplayMemberBinding="{Binding Date}"/>
+                                <GridViewColumn Header="Сумма оплаты" Width="150" DisplayMemberBinding="{Binding Sum}"/>
+                                <GridViewColumn Header="Номер заказа" Width="150" DisplayMemberBinding="{Binding PurchaseOrder.OrderNumber}"/>
+                                <GridViewColumn Header="Оплатил" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding PurchaseOrder.Contract.IsSupply}" Value="True">
+                                                                <Setter Property="Text" Value="{Binding PurchaseOrder.Contract.Manufacturer.Name}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding PurchaseOrder.Contract.IsSupply}" Value="False">
+                                                                <Setter Property="Text" Value="{Binding PurchaseOrder.Contract.Client.FullName}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Счет оплаты" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding PurchaseOrder.Contract.IsSupply}" Value="True">
+                                                                <Setter Property="Text" Value="{Binding PurchaseOrder.Contract.Manufacturer.BankDetails}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding PurchaseOrder.Contract.IsSupply}" Value="False">
+                                                                <Setter Property="Text" Value="{Binding PurchaseOrder.Contract.Client.BankAccount}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

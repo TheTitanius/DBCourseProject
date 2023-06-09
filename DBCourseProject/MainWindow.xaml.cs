@@ -17,6 +17,9 @@ namespace DBCourseProject
             ManufacturerItem.DataContext = new ManufacturerViewModel(db);
             TVItem.DataContext = new TVViewModel(db);
             ContractsItem.DataContext = new ContractViewModel(db);
+            GoodDeliveryItem.DataContext = new GoodDeliveryViewModel(db);
+            PurchaseOrderItem.DataContext = new PurchaseOrderViewModel(db);
+            BillItem.DataContext = new BillViewModel(db);
         }
     }
 }
