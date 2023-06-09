@@ -29,6 +29,17 @@ namespace DBCourseProject.Entities
             }
         }
 
+        private uint tvInStock = 0;
+        public uint TvInStock
+        {
+            get { return tvInStock; }
+            set
+            {
+                tvInStock = value;
+                OnPropertyChanged(nameof(TvInStock));
+            }
+        }
+
         private TVType tvType;
         public TVType TVType
         {

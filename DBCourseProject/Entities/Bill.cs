@@ -9,15 +9,7 @@ namespace DBCourseProject.Entities
     {
         public int BillId { get; set; }
 
-        private int billNumber;
-        public int BillNumber { get { return billNumber; } set
-            {
-                billNumber = value;
-                OnPropertyChanged(nameof(BillNumber));
-            }
-        }
-
-        private Instant date;
+        private Instant date = Instant.FromUtc(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute);
         public Instant Date { get { return date; } set
             {
                 date = value;
@@ -25,8 +17,8 @@ namespace DBCourseProject.Entities
             }
         }
 
-        private int sum;
-        public int Sum
+        private uint sum;
+        public uint Sum
         {
             get { return sum; }
             set

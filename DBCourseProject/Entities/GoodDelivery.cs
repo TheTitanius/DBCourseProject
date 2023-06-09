@@ -7,14 +7,14 @@ namespace DBCourseProject.Entities
     {
         public int GoodDeliveryId { get; set; }
 
-        private int quantity;
-        public int Quantity
+        private uint quantity;
+        public uint Quantity
         {
             get { return quantity; }
             set
             {
                 quantity = value;
-
+                OnPropertyChanged(nameof(Quantity));
             }
         }
 
@@ -29,8 +29,19 @@ namespace DBCourseProject.Entities
             }
         }
 
-        private PurchaseOrder purchaseOrder;
-        public PurchaseOrder PurchaseOrder
+        private uint sum;
+        public uint Sum
+        {
+            get { return sum; }
+            set
+            {
+                sum = value;
+                OnPropertyChanged(nameof(Sum));
+            }
+        }
+
+        private PurchaseOrder? purchaseOrder;
+        public PurchaseOrder? PurchaseOrder
         {
             get { return purchaseOrder; }
             set
