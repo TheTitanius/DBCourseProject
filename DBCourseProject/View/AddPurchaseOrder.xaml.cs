@@ -1,5 +1,4 @@
 ﻿using DBCourseProject.Entities;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -27,19 +26,16 @@ namespace DBCourseProject.View
             List<string> contractsNormalname = new();
             foreach (Contract contract in Contracts)
             {
-                string str = "Id: ";
+                string str = "Номер договора: ";
                 str += contract.ContractId;
-                str += ", №: ";
-                str += contract.ContractNumber.ToString();
                 str += ", ";
 
-                if(contract.Client != null)
+                if (!contract.IsSupply)
                 {
                     str += "Покупатель: ";
                     str += contract.Client.FullName;
                 }
-
-                if (contract.Manufacturer != null)
+                else
                 {
                     str += "Поставщик: ";
                     str += contract.Manufacturer.Name;

@@ -118,7 +118,6 @@
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding ContractId}"/>
-                                        <GridViewColumn Header="Номер договора" Width="150" DisplayMemberBinding="{Binding ContractNumber}"/>
                                         <GridViewColumn Header="Дата заключения" Width="150" DisplayMemberBinding="{Binding Date}"/>
                                         <GridViewColumn Header="Заключен с" Width="150" DisplayMemberBinding="{Binding Manufacturer.Name}"/>
                                     </GridView>
@@ -155,7 +154,6 @@
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding ContractId}"/>
-                                        <GridViewColumn Header="Номер договора" Width="150" DisplayMemberBinding="{Binding ContractNumber}"/>
                                         <GridViewColumn Header="Дата заключения" Width="150" DisplayMemberBinding="{Binding Date}"/>
                                         <GridViewColumn Header="Заключен с" Width="150" DisplayMemberBinding="{Binding Client.FullName}"/>
                                     </GridView>
@@ -225,7 +223,7 @@
                                 <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding PurchaseOrderId}"/>
                                 <GridViewColumn Header="Номер заказа" Width="150" DisplayMemberBinding="{Binding OrderNumber}"/>
                                 <GridViewColumn Header="Сумма заказа" Width="150" DisplayMemberBinding="{Binding Sum}"/>
-                                <GridViewColumn Header="Номер договора" Width="150" DisplayMemberBinding="{Binding Contract.ContractNumber}"/>
+                                <GridViewColumn Header="Номер договора" Width="150" DisplayMemberBinding="{Binding Contract.ContractId}"/>
                                 <GridViewColumn Header="Статус заказа" Width="150">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>

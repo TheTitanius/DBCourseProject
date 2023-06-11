@@ -105,7 +105,6 @@ namespace DBCourseProject.ViewModels
                         Contract oldContract = new()
                         {
                             ContractId = contract.ContractId,
-                            ContractNumber = contract.ContractNumber,
                             Date = contract.Date,
                             IsSupply = contract.IsSupply,
                             Manufacturer = contract.Manufacturer,
@@ -115,7 +114,6 @@ namespace DBCourseProject.ViewModels
 
                         if (addContract.ShowDialog() == true)
                         {
-                            contract.ContractNumber = addContract.Contract.ContractNumber;
                             contract.Date = addContract.Contract.Date;
                             contract.IsSupply = addContract.Contract.IsSupply;
 

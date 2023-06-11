@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DBCourseProject.View"
         mc:Ignorable="d"
-        Title="Добавить контракт" Height="200" Width="470">
+        Title="Добавить/Изменить контракт" Height="200" Width="470">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -18,18 +17,10 @@
                 <ColumnDefinition Width="0.35*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Номер контракта" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
-            <TextBox Text="{Binding Contract.ContractNumber}" Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0"/>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.35*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
             <TextBlock Text="Дата" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
             <TextBox Text="{Binding Contract.Date}" Grid.Column="1" FontSize="14" VerticalAlignment="Center" Margin="5,0,5,0"/>
         </Grid>
-        <Grid Grid.Row="2" Visibility="Visible" Name="manufacturerGrid">
+        <Grid Grid.Row="1" Visibility="Visible" Name="manufacturerGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.35*"/>
                 <ColumnDefinition Width="*"/>
@@ -37,7 +28,7 @@
             <TextBlock Text="Проивзодитель" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
             <ComboBox Name="manufacturerComboBox" SelectedItem="{Binding ManufacturerName}" Grid.Column="2" Margin="5,5,5,5"/>
         </Grid>
-        <Grid Grid.Row="2" Visibility="Collapsed" Name="buyerGrid">
+        <Grid Grid.Row="1" Visibility="Collapsed" Name="buyerGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.35*"/>
                 <ColumnDefinition Width="*"/>
@@ -45,7 +36,7 @@
             <TextBlock Text="Покупатель" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
             <ComboBox Name="buyerComboBox" SelectedItem="{Binding FullName}" Grid.Column="2" Margin="5,5,5,5"/>
         </Grid>
-        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

@@ -9,17 +9,6 @@ namespace DBCourseProject.Entities
     {
         public int ContractId { get; set; }
 
-        private int contractNumber;
-        public int ContractNumber
-        {
-            get { return contractNumber; }
-            set
-            {
-                contractNumber = value;
-                OnPropertyChanged(nameof(ContractNumber));
-            }
-        }
-
         private Instant date = Instant.FromUtc(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute);
         public Instant Date
         {
