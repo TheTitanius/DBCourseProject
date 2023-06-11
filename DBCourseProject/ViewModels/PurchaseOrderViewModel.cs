@@ -100,7 +100,6 @@ namespace DBCourseProject.ViewModels
                         PurchaseOrder pO = new()
                         {
                             PurchaseOrderId = purchaseOrder.PurchaseOrderId,
-                            OrderNumber = purchaseOrder.OrderNumber,
                             PaymentStat = purchaseOrder.PaymentStat,
                             Sum = purchaseOrder.Sum,
                             Contract = purchaseOrder.Contract,

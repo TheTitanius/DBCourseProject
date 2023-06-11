@@ -7,17 +7,6 @@ namespace DBCourseProject.Entities
     {
         public int PurchaseOrderId { get; set; }
 
-        private int orderNumber;
-        public int OrderNumber
-        {
-            get { return orderNumber; }
-            set
-            {
-                orderNumber = value;
-                OnPropertyChanged(nameof(OrderNumber));
-            }
-        }
-
         private bool paymentStat = false;
         public bool PaymentStat
         {

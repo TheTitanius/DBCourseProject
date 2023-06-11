@@ -43,7 +43,7 @@ namespace DBCourseProject.ViewModels
                         if (addPurchaseOrder.ShowDialog() == true)
                         {
                             PurchaseOrder purchaseOrder = addPurchaseOrder.PurchaseOrder;
-                            int id = int.Parse(addPurchaseOrder.ContractsNormalName.Split(' ', ',')[1]);
+                            int id = int.Parse(addPurchaseOrder.ContractsNormalName.Split(' ', ',')[2]);
                             purchaseOrder.Contract = db.Contracts.Where(p => p.ContractId == id).First();
 
                             uint sum = 0;
