@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DBCourseProject" xmlns:entities="clr-namespace:DBCourseProject.Entities"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Комплекс для дилера по продаже телевизоров" Height="450" Width="800">
     <Grid>
         <TabControl>
             <TabItem Header="Клиенты" Name="ClientItem">
